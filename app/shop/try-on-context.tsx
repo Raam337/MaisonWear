@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react'
 import type { Product } from '@/lib/products'
+import { resolveAsset } from '@/lib/utils'
 
 export interface TryOnState {
   userImage: string | null
@@ -83,7 +84,7 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
       let isStaticDemo = false
 
       try {
-        response = await fetch('/api/try-on', {
+        response = await fetch(resolveAsset('/api/try-on'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
           }),
         })
 
-        if (response.status === 404) {
+        if (response.status === 404 || response.status === 405) {
           isStaticDemo = true
         }
       } catch (e) {

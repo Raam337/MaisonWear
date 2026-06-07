@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import type { Product } from '@/lib/products'
 import { formatPrice } from '@/lib/products'
 import { useTryOn } from '@/app/shop/try-on-context'
-import { cn } from '@/lib/utils'
+import { cn, resolveAsset } from '@/lib/utils'
 
 interface ProductCardProps {
   product: Product
@@ -27,12 +27,12 @@ export function ProductCard({ product, index }: ProductCardProps) {
     >
       <div
         className={cn(
-          'relative aspect-[3/4] overflow-hidden bg-secondary transition-all duration-300 border',
+          'relative aspect-3/4 overflow-hidden bg-secondary transition-all duration-300 border',
           isSelected ? 'border-primary shadow-md' : 'border-transparent group-hover:border-border',
         )}
       >
         <Image
-          src={product.image || '/placeholder.svg'}
+          src={resolveAsset(product.image || '/placeholder.svg')}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 20vw"

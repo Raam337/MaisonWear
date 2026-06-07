@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { resolveAsset } from '@/lib/utils'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -19,7 +20,7 @@ export function Hero() {
             className="absolute inset-0"
           >
             <Image
-              src="/hero-main.png"
+              src={resolveAsset('/hero-main.png')}
               alt="Model wearing a camel wool overcoat"
               fill
               priority
@@ -113,7 +114,7 @@ function EditorialTile({
   return (
     <Link href={href} className="group relative block aspect-[16/10] overflow-hidden bg-secondary">
       <Image
-        src={image || '/placeholder.svg'}
+        src={resolveAsset(image || '/placeholder.svg')}
         alt={title}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"

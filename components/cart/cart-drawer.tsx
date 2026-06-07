@@ -8,6 +8,8 @@ import { X, Minus, Plus, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/components/cart/cart-provider'
 import { formatPrice } from '@/lib/products'
 
+import { resolveAsset } from '@/lib/utils'
+
 export function CartDrawer() {
   const { isOpen, closeCart, items, subtotal, updateQuantity, removeItem, count } =
     useCart()
@@ -80,10 +82,10 @@ export function CartDrawer() {
                         <Link
                           href={`/products/${item.product.slug}`}
                           onClick={closeCart}
-                          className="relative aspect-[3/4] w-20 flex-shrink-0 overflow-hidden bg-secondary"
+                          className="relative aspect-3/4 w-20 flex-shrink-0 overflow-hidden bg-secondary"
                         >
                           <Image
-                            src={item.product.image || '/placeholder.svg'}
+                            src={resolveAsset(item.product.image || '/placeholder.svg')}
                             alt={item.product.name}
                             fill
                             sizes="80px"

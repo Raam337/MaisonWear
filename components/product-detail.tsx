@@ -8,7 +8,7 @@ import { Minus, Plus, Check, Truck, RotateCcw, ChevronRight } from 'lucide-react
 import type { Product } from '@/lib/products'
 import { formatPrice } from '@/lib/products'
 import { useCart } from '@/components/cart/cart-provider'
-import { cn } from '@/lib/utils'
+import { cn, resolveAsset } from '@/lib/utils'
 
 export function ProductDetail({ product }: { product: Product }) {
   const { addItem } = useCart()
@@ -30,7 +30,7 @@ export function ProductDetail({ product }: { product: Product }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       {/* Image */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-secondary lg:aspect-auto lg:min-h-[80vh]">
+      <div className="relative aspect-3/4 overflow-hidden bg-secondary lg:aspect-auto lg:min-h-[80vh]">
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -38,7 +38,7 @@ export function ProductDetail({ product }: { product: Product }) {
           className="absolute inset-0"
         >
           <Image
-            src={product.image || '/placeholder.svg'}
+            src={resolveAsset(product.image || '/placeholder.svg')}
             alt={product.name}
             fill
             priority

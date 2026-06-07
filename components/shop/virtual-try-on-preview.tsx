@@ -12,7 +12,7 @@ import {
   Download,
   RefreshCw,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, resolveAsset } from '@/lib/utils'
 
 export function VirtualTryOnPreview() {
   const {
@@ -90,10 +90,10 @@ export function VirtualTryOnPreview() {
             </p>
             <h4 className="font-serif text-xl text-foreground">Curating Your Style</h4>
             
-            <div className="relative w-full max-w-[200px] aspect-[3/4] border border-border bg-secondary/25 overflow-hidden flex items-center justify-center">
+            <div className="relative w-full max-w-[200px] aspect-3/4 border border-border bg-secondary/25 overflow-hidden flex items-center justify-center">
               {userImage && (
                 <Image
-                  src={userImage}
+                  src={resolveAsset(userImage)}
                   alt="User Base"
                   fill
                   className="object-cover blur-[6px] opacity-35"
@@ -101,7 +101,7 @@ export function VirtualTryOnPreview() {
               )}
               <div className="relative w-[60%] h-[75%] opacity-35 animate-pulse">
                 <Image
-                  src="/try-on/silhouette.png"
+                  src={resolveAsset('/try-on/silhouette.png')}
                   alt="Silhouette"
                   fill
                   className="object-contain"
@@ -171,7 +171,7 @@ export function VirtualTryOnPreview() {
                       )}
                     >
                       <div className="relative size-6 bg-secondary border border-border overflow-hidden shrink-0">
-                        <Image src={img} alt={`Uploaded photo ${index + 1}`} fill className="object-cover" />
+                        <Image src={resolveAsset(img)} alt={`Uploaded photo ${index + 1}`} fill className="object-cover" />
                       </div>
                       <span className="truncate">Uploaded Photo {index + 1}</span>
                       {isActive && <span className="ml-auto size-1.5 rounded-full bg-accent" />}
@@ -221,7 +221,7 @@ export function VirtualTryOnPreview() {
         {/* Displaying Image Content */}
         {generatedImage ? (
           <Image
-            src={generatedImage}
+            src={resolveAsset(generatedImage)}
             alt="AI Outfit Render"
             fill
             className="object-contain animate-fade-in"
@@ -230,7 +230,7 @@ export function VirtualTryOnPreview() {
           />
         ) : userImage ? (
           <Image
-            src={userImage}
+            src={resolveAsset(userImage)}
             alt="My Portrait"
             fill
             className="object-contain"
@@ -239,9 +239,9 @@ export function VirtualTryOnPreview() {
           />
         ) : (
           <div className="relative w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-b from-secondary/15 to-secondary/35">
-            <div className="relative aspect-[3/4] w-[60%] max-h-[80%] opacity-90 transition-transform duration-700 hover:scale-102">
+            <div className="relative aspect-3/4 w-[60%] max-h-[80%] opacity-90 transition-transform duration-700 hover:scale-102">
               <Image
-                src="/try-on/silhouette.png"
+                src={resolveAsset('/try-on/silhouette.png')}
                 alt="Blank Silhouette"
                 fill
                 className="object-contain"
@@ -275,7 +275,7 @@ export function VirtualTryOnPreview() {
                   className="flex items-center gap-2 bg-secondary/20 border border-border/40 p-1.5 pr-2.5 shrink-0 select-none group relative max-w-[180px]"
                 >
                   <div className="relative w-8 h-10 bg-secondary overflow-hidden shrink-0 border border-border/40">
-                    <Image src={product.image} alt={product.name} fill className="object-cover" />
+                    <Image src={resolveAsset(product.image)} alt={product.name} fill className="object-cover" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[8px] uppercase tracking-wider text-muted-foreground truncate">{product.brand}</p>

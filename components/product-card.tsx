@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import type { Product } from '@/lib/products'
 import { formatPrice } from '@/lib/products'
+import { resolveAsset } from '@/lib/utils'
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
   return (
@@ -17,9 +18,9 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       className="group"
     >
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
+        <div className="relative aspect-3/4 overflow-hidden bg-secondary">
           <Image
-            src={product.image || '/placeholder.svg'}
+            src={resolveAsset(product.image || '/placeholder.svg')}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

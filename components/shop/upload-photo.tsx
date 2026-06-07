@@ -88,7 +88,7 @@ export function UploadPhoto() {
       )}
 
       {userImage ? (
-        <div className="relative aspect-[3/4] w-full border border-border bg-secondary overflow-hidden group">
+        <div className="relative aspect-3/4 w-full border border-border bg-secondary overflow-hidden group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={userImage} alt="User Preview" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
@@ -121,7 +121,7 @@ export function UploadPhoto() {
           onDrop={handleDrop}
           onClick={onButtonClick}
           className={cn(
-            'relative aspect-[3/4] w-full border border-dashed flex flex-col items-center justify-center p-6 text-center cursor-pointer transition-all duration-300 bg-secondary/35',
+            'relative aspect-3/4 w-full border border-dashed flex flex-col items-center justify-center p-6 text-center cursor-pointer transition-all duration-300 bg-secondary/35',
             dragActive
               ? 'border-primary bg-primary/5 scale-[0.99]'
               : 'border-border hover:border-foreground/40 hover:bg-secondary/60',

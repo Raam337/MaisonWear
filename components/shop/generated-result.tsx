@@ -42,7 +42,7 @@ export function GeneratedResult() {
       {/* Main content grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 flex-1">
         {/* Output image */}
-        <div className="md:col-span-7 flex flex-col items-center justify-center bg-secondary/25 border border-border/60 aspect-[3/4] relative overflow-hidden group shadow-md">
+        <div className="md:col-span-7 flex flex-col items-center justify-center bg-secondary/25 border border-border/60 aspect-3/4 relative overflow-hidden group shadow-md">
           {generatedImage && (
             <Image
               src={generatedImage}

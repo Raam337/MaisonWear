@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useTryOn } from '@/app/shop/try-on-context'
+import { resolveAsset } from '@/lib/utils'
 
 const LOADING_STEPS = [
   'Analyzing body posture and dimensions...',
@@ -35,11 +36,11 @@ export function GenerationProgress() {
       </div>
 
       {/* Loading Visual Container */}
-      <div className="relative w-full max-w-[320px] aspect-[3/4] border border-border overflow-hidden bg-secondary/35 shadow-inner flex items-center justify-center">
+      <div className="relative w-full max-w-[320px] aspect-3/4 border border-border overflow-hidden bg-secondary/35 shadow-inner flex items-center justify-center">
         {/* Blurry User Image Background if available */}
         {userImage && (
           <Image
-            src={userImage}
+            src={resolveAsset(userImage)}
             alt="Blurry Background"
             fill
             className="object-cover blur-[8px] opacity-30 scale-105"
@@ -49,7 +50,7 @@ export function GenerationProgress() {
         {/* Pulsing Silhouette Overlay */}
         <div className="relative w-[65%] h-[80%] opacity-45 animate-pulse">
           <Image
-            src="/try-on/silhouette.png"
+            src={resolveAsset('/try-on/silhouette.png')}
             alt="Pulsing Silhouette"
             fill
             className="object-contain invert dark:invert-0"

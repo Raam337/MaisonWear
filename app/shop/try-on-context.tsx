@@ -79,20 +79,37 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
     try {
       const prompt = `Generate a photorealistic fashion photo of me wearing the following outfit: ${selectedProducts.map((p) => `${p.name} by ${p.brand} (${p.color})`).join(', ')}. Keep my face, body, posture, and the background identical. Output only the final image.`
 
-      const response = await fetch('/api/try-on', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userImage,
-          prompt,
-        }),
-      })
+      let response: Response | null = null
+      let isStaticDemo = false
 
-      if (!response.ok) {
-        // Try to read error message if available
-        const errData = await response.json().catch(() => ({}))
+      try {
+        response = await fetch('/api/try-on', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userImage,
+            prompt,
+          }),
+        })
+
+        if (response.status === 404) {
+          isStaticDemo = true
+        }
+      } catch (e) {
+        isStaticDemo = true
+      }
+
+      if (isStaticDemo) {
+        // Fallback for static hosts (GitHub Pages) - simulate network latency for the scanner
+        await new Promise((resolve) => setTimeout(resolve, 2500))
+        setGeneratedImageState('/try-on/result.png')
+        return
+      }
+
+      if (!response || !response.ok) {
+        const errData = response ? await response.json().catch(() => ({})) : {}
         throw new Error(errData.error || 'Failed to generate try-on outfit.')
       }
 

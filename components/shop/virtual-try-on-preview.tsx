@@ -179,6 +179,47 @@ export function VirtualTryOnPreview() {
                   )
                 })}
 
+                {/* Example Models Section */}
+                <div className="px-3.5 py-2 border-t border-b border-border/60 text-[10px] uppercase tracking-luxe text-muted-foreground font-semibold mt-1">
+                  Example Models
+                </div>
+                
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUserImage('/try-on/model1.jpg')
+                    setDropdownOpen(false)
+                  }}
+                  className={cn(
+                    'w-full flex items-center gap-3.5 px-3.5 py-2 hover:bg-secondary/40 text-left transition-colors',
+                    userImage === '/try-on/model1.jpg' && 'font-semibold bg-secondary/25'
+                  )}
+                >
+                  <div className="relative size-6 bg-secondary border border-border overflow-hidden shrink-0">
+                    <Image src={resolveAsset('/try-on/model1.jpg')} alt="Model 1" fill className="object-cover" />
+                  </div>
+                  <span className="truncate">Male Model 1</span>
+                  {userImage === '/try-on/model1.jpg' && <span className="ml-auto size-1.5 rounded-full bg-accent" />}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUserImage('/try-on/model2.png')
+                    setDropdownOpen(false)
+                  }}
+                  className={cn(
+                    'w-full flex items-center gap-3.5 px-3.5 py-2 hover:bg-secondary/40 text-left transition-colors',
+                    userImage === '/try-on/model2.png' && 'font-semibold bg-secondary/25'
+                  )}
+                >
+                  <div className="relative size-6 bg-secondary border border-border overflow-hidden shrink-0">
+                    <Image src={resolveAsset('/try-on/model2.png')} alt="Model 2" fill className="object-cover" />
+                  </div>
+                  <span className="truncate">Male Model 2</span>
+                  {userImage === '/try-on/model2.png' && <span className="ml-auto size-1.5 rounded-full bg-accent" />}
+                </button>
+
                 {/* Clear/Reset option */}
                 {userImage && (
                   <button

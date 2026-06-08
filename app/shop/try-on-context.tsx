@@ -85,7 +85,28 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
         throw new Error('GEMINI_API_KEY is not configured in environment variables.')
       }
 
-      const match = userImage.match(/^data:(.+?);base64,(.*)$/)
+      let activeImageBase64 = userImage
+      if (!userImage.startsWith('data:')) {
+        try {
+          const absoluteUrl = resolveAsset(userImage)
+          const imgResponse = await fetch(absoluteUrl)
+          if (!imgResponse.ok) {
+            throw new Error(`Failed to load example model image.`)
+          }
+          const blob = await imgResponse.blob()
+          
+          activeImageBase64 = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result as string)
+            reader.onerror = () => reject(new Error('Failed to convert model image to data URI.'))
+            reader.readAsDataURL(blob)
+          })
+        } catch (e) {
+          throw new Error('Could not load and process the example model image.')
+        }
+      }
+
+      const match = activeImageBase64.match(/^data:(.+?);base64,(.*)$/)
       if (!match) {
         throw new Error('Invalid user image format.')
       }

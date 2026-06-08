@@ -93,7 +93,7 @@ export function ShopLayout() {
 
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Left Column of Left Section: Filters list */}
-            <div className="w-full md:w-[220px] lg:w-[240px] shrink-0 bg-secondary/15 p-4 md:bg-transparent md:p-0 border md:border-0 border-border/40 md:sticky md:top-6">
+            <div className="w-full md:w-[175px] lg:w-[190px] shrink-0 bg-secondary/15 p-4 md:bg-transparent md:p-0 border md:border-0 border-border/40 md:sticky md:top-6">
               <ProductFilters
                 selectedCategory={selectedCategory}
                 onCategoryChange={setSelectedCategory}

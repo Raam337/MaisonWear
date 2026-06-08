@@ -80,46 +80,77 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
     try {
       const prompt = `Generate a photorealistic fashion photo of me wearing the following outfit: ${selectedProducts.map((p) => `${p.name} by ${p.brand} (${p.color})`).join(', ')}. Keep my face, body, posture, and the background identical. Output only the final image.`
 
-      let response: Response | null = null
-      let isStaticDemo = false
+      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY
+      if (!apiKey) {
+        throw new Error('GEMINI_API_KEY is not configured in environment variables.')
+      }
 
-      try {
-        response = await fetch(resolveAsset('/api/try-on'), {
+      const match = userImage.match(/^data:(.+?);base64,(.*)$/)
+      if (!match) {
+        throw new Error('Invalid user image format.')
+      }
+      const mimeType = match[1]
+      const base64Data = match[2]
+
+      const model = 'gemini-3.1-flash-image'
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            userImage,
-            prompt,
+            contents: [
+              {
+                parts: [
+                  { text: prompt },
+                  {
+                    inlineData: {
+                      mimeType,
+                      data: base64Data,
+                    },
+                  },
+                ],
+              },
+            ],
           }),
-        })
-
-        if (response.status === 404 || response.status === 405) {
-          isStaticDemo = true
         }
-      } catch (e) {
-        isStaticDemo = true
-      }
+      )
 
-      if (isStaticDemo) {
-        // Fallback for static hosts (GitHub Pages) - simulate network latency for the scanner
-        await new Promise((resolve) => setTimeout(resolve, 2500))
-        setGeneratedImageState('/try-on/result.png')
-        return
-      }
-
-      if (!response || !response.ok) {
-        const errData = response ? await response.json().catch(() => ({})) : {}
-        throw new Error(errData.error || 'Failed to generate try-on outfit.')
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}))
+        const errMsg = errData.error?.message || 'Failed to generate try-on outfit via Gemini API.'
+        throw new Error(errMsg)
       }
 
       const data = await response.json()
-      if (data.image) {
-        setGeneratedImageState(data.image)
-      } else {
-        throw new Error('No image returned from the server.')
+
+      let generatedImageBase64 = ''
+      let responseMimeType = 'image/png'
+
+      const candidate = data.candidates?.[0]
+      if (candidate?.content?.parts) {
+        for (const part of candidate.content.parts) {
+          if (part.inlineData) {
+            generatedImageBase64 = part.inlineData.data
+            if (part.inlineData.mimeType) {
+              responseMimeType = part.inlineData.mimeType
+            }
+            break
+          }
+        }
       }
+
+      if (!generatedImageBase64) {
+        const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text
+        throw new Error(
+          textResponse || 'The try-on model did not return a generated image. Please try again.'
+        )
+      }
+
+      const dataUrl = `data:${responseMimeType};base64,${generatedImageBase64}`
+      setGeneratedImageState(dataUrl)
     } catch (error) {
       console.error('Try-on error:', error)
       alert(error instanceof Error ? error.message : 'An error occurred during generation.')

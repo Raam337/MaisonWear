@@ -83,6 +83,7 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} run build
         env:
           NEXT_PUBLIC_BASE_PATH: '/MaisonWear'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

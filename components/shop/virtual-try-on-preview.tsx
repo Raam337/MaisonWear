@@ -57,14 +57,60 @@ export function VirtualTryOnPreview() {
     }
   }
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!generatedImage) return
-    const link = document.createElement('a')
-    link.href = generatedImage
-    link.download = 'maison-try-on-outfit.png'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+
+    try {
+      const resolvedUrl = resolveAsset(generatedImage)
+
+      // 1. Fetch image and convert to Blob/File for sharing
+      let blob: Blob
+      if (resolvedUrl.startsWith('data:')) {
+        const parts = resolvedUrl.split(',')
+        const mime = parts[0].match(/:(.*?);/)?.[1] || 'image/png'
+        const bstr = atob(parts[1])
+        let n = bstr.length
+        const u8arr = new Uint8Array(n)
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        blob = new Blob([u8arr], { type: mime })
+      } else {
+        const response = await fetch(resolvedUrl)
+        blob = await response.blob()
+      }
+
+      const mimeType = blob.type || 'image/png'
+      const file = new File([blob], 'maison-try-on-look.png', { type: mimeType })
+
+      // 2. Share via Web Share API if supported and on mobile (iOS/Android native save/share sheet)
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+                       (navigator.maxTouchPoints > 0 && /Macintosh/i.test(navigator.userAgent))
+      if (isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Maison Wear Try-On',
+          text: 'My Virtual Try-on Look from Maison Wear',
+        })
+        return
+      }
+    } catch (error) {
+      console.warn('Native share failed or not supported, falling back to standard download:', error)
+    }
+
+    // 3. Fallback: Standard programmatic anchor click
+    try {
+      const link = document.createElement('a')
+      link.href = resolveAsset(generatedImage)
+      link.download = 'maison-try-on-outfit.png'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Standard download failed:', error)
+      // Final Fallback: Open in new tab
+      window.open(resolveAsset(generatedImage), '_blank')
+    }
   }
 
   return (
@@ -118,16 +164,29 @@ export function VirtualTryOnPreview() {
           </div>
         )}
 
-        {/* Top-Right Dropdown Actions Menu (3 dots) */}
+        {/* Top-Right Actions (Download + 3 dots Dropdown) */}
         <div className="absolute top-4 right-4 z-30">
-          <button
-            type="button"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex size-9 items-center justify-center bg-background/90 hover:bg-background border border-border text-foreground backdrop-blur shadow-sm transition-all cursor-pointer"
-            aria-label="Try-on settings"
-          >
-            <MoreVertical className="size-4.5 text-foreground" />
-          </button>
+          <div className="flex items-center gap-2">
+            {generatedImage && (
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="flex size-9 items-center justify-center bg-background/90 hover:bg-background border border-border text-foreground backdrop-blur shadow-sm transition-all cursor-pointer"
+                aria-label="Download generated try-on"
+                title="Download Photo"
+              >
+                <Download className="size-4.5 text-foreground" />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex size-9 items-center justify-center bg-background/90 hover:bg-background border border-border text-foreground backdrop-blur shadow-sm transition-all cursor-pointer"
+              aria-label="Try-on settings"
+            >
+              <MoreVertical className="size-4.5 text-foreground" />
+            </button>
+          </div>
 
           {dropdownOpen && (
             <>

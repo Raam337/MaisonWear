@@ -78,7 +78,12 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
     setGeneratedImageState(null)
 
     try {
-      const prompt = `Generate a photorealistic fashion photo of me wearing the following outfit: ${selectedProducts.map((p) => `${p.name} by ${p.brand} (${p.color})`).join(', ')}. Keep my face, body, posture, and the background identical. Output only the final image.`
+      const prompt = `Generate a photorealistic fashion photo of the person in the input image wearing this exact outfit: ${selectedProducts.map((p) => `${p.name} by ${p.brand} (${p.color} color)`).join(', ')}.
+CRITICAL OUTFIT GUIDELINES:
+- The garment(s) must be identical in design, cut, length, necklines, sleeves, smocking, buttons, and specific details. Do NOT add, change, or remove any design elements.
+- The fabric texture, pattern, drape, and material properties (such as knit ribs, silk sheen, Smocking, or trench buttons) must be perfectly preserved and rendered.
+- Fit the clothing realistically and naturally onto the person's body structure.
+- Keep the person's face, expression, hair, body posture, and the background identical to the original base photo.`
 
       const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY
       if (!apiKey) {

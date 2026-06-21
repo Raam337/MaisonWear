@@ -12,6 +12,7 @@ import { useTryOn } from '@/app/shop/try-on-context'
 const CATEGORY_MAP: Record<string, string[]> = {
   Jackets: ['Coats'],
   Shirts: ['Shirts', 'Knitwear'],
+  Dresses: ['Dresses'],
   Trousers: ['Trousers'],
   Shoes: ['Shoes'],
   Accessories: ['Accessories', 'Bags'],
@@ -19,6 +20,7 @@ const CATEGORY_MAP: Record<string, string[]> = {
 
 export function ShopLayout() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedGender, setSelectedGender] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
@@ -36,13 +38,18 @@ export function ShopLayout() {
         if (!nameMatch && !brandMatch) return false
       }
 
-      // 2. Category Filter
+      // 2. Gender Filter
+      if (selectedGender) {
+        if (product.gender !== 'Unisex' && product.gender !== selectedGender) return false
+      }
+
+      // 3. Category Filter
       if (selectedCategory) {
         const targetCategories = CATEGORY_MAP[selectedCategory] || []
         if (!targetCategories.includes(product.category)) return false
       }
 
-      // 3. Color Filter
+      // 4. Color Filter
       if (selectedColor) {
         const colLower = selectedColor.toLowerCase()
         const matchMain = product.color.toLowerCase() === colLower
@@ -50,23 +57,24 @@ export function ShopLayout() {
         if (!matchMain && !matchColors) return false
       }
 
-      // 4. Size Filter
+      // 5. Size Filter
       if (selectedSize) {
         const sizeExists = product.sizes?.includes(selectedSize)
         if (!sizeExists) return false
       }
 
-      // 5. Price Filter
+      // 6. Price Filter
       if (product.price < minPrice || product.price > maxPrice) {
         return false
       }
 
       return true
     })
-  }, [searchQuery, selectedCategory, selectedColor, selectedSize, minPrice, maxPrice])
+  }, [searchQuery, selectedGender, selectedCategory, selectedColor, selectedSize, minPrice, maxPrice])
 
   const handleClearAll = () => {
     setSearchQuery('')
+    setSelectedGender(null)
     setSelectedCategory(null)
     setSelectedColor(null)
     setSelectedSize(null)
@@ -95,6 +103,8 @@ export function ShopLayout() {
             {/* Left Column of Left Section: Filters list */}
             <div className="w-full md:w-[175px] lg:w-[190px] shrink-0 bg-secondary/15 p-4 md:bg-transparent md:p-0 border md:border-0 border-border/40 md:sticky md:top-6">
               <ProductFilters
+                selectedGender={selectedGender}
+                onGenderChange={setSelectedGender}
                 selectedCategory={selectedCategory}
                 onCategoryChange={setSelectedCategory}
                 selectedColor={selectedColor}

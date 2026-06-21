@@ -4,7 +4,7 @@ export type Product = {
   name: string
   brand: string
   price: number
-  category: 'Coats' | 'Knitwear' | 'Shirts' | 'Trousers' | 'Shoes' | 'Bags' | 'Accessories'
+  category: 'Coats' | 'Knitwear' | 'Shirts' | 'Trousers' | 'Shoes' | 'Bags' | 'Accessories' | 'Dresses'
   color: string
   colors: string[]
   sizes: string[]
@@ -12,6 +12,7 @@ export type Product = {
   isNew?: boolean
   description: string
   details: string[]
+  gender: 'Men' | 'Women' | 'Unisex'
 }
 
 export const products: Product[] = [
@@ -35,6 +36,7 @@ export const products: Product[] = [
       'Fully lined, two front flap pockets',
       'Made in Italy',
     ],
+    gender: 'Men',
   },
   {
     id: '2',
@@ -50,6 +52,7 @@ export const products: Product[] = [
     description:
       'Spun from pure grade-A Mongolian cashmere, this crewneck offers featherweight warmth with a refined hand-feel that softens with every wear.',
     details: ['100% grade-A cashmere', 'Ribbed crewneck, cuffs and hem', 'Dry clean only', 'Made in Scotland'],
+    gender: 'Men',
   },
   {
     id: '3',
@@ -65,6 +68,7 @@ export const products: Product[] = [
     description:
       'A wardrobe cornerstone. This crisp white oxford is woven from long-staple cotton and finished with a button-down collar and mother-of-pearl buttons.',
     details: ['100% long-staple cotton', 'Button-down collar', 'Mother-of-pearl buttons', 'Machine washable'],
+    gender: 'Men',
   },
   {
     id: '4',
@@ -80,6 +84,7 @@ export const products: Product[] = [
     description:
       'Sharply tailored trousers in a fine charcoal wool, cut with a straight leg and a clean, flat front for a polished finish.',
     details: ['100% virgin wool', 'Straight leg, flat front', 'Side and back pockets', 'Made in Italy'],
+    gender: 'Men',
   },
   {
     id: '5',
@@ -96,6 +101,7 @@ export const products: Product[] = [
     description:
       'Minimalist low-top sneakers handcrafted from supple Italian calf leather, set on a tonal rubber sole for understated everyday luxury.',
     details: ['Italian calf leather upper', 'Rubber outsole', 'Leather lining', 'Handcrafted in Portugal'],
+    gender: 'Men',
   },
   {
     id: '6',
@@ -111,6 +117,7 @@ export const products: Product[] = [
     description:
       'A generously proportioned holdall in full-grain vegetable-tanned leather that develops a rich patina over time. Built for the discerning traveller.',
     details: ['Full-grain vegetable-tanned leather', 'Brass hardware', 'Detachable shoulder strap', 'Made in England'],
+    gender: 'Unisex',
   },
   {
     id: '7',
@@ -126,6 +133,7 @@ export const products: Product[] = [
     description:
       'Hand-polished acetate sunglasses in a classic tortoiseshell finish with gradient lenses offering full UV protection.',
     details: ['Hand-polished acetate frame', 'CR-39 gradient lenses', '100% UV protection', 'Made in Italy'],
+    gender: 'Unisex',
   },
   {
     id: '8',
@@ -142,6 +150,7 @@ export const products: Product[] = [
     description:
       'A precision Swiss automatic movement housed in a brushed stainless steel case, finished with a hand-stitched leather strap.',
     details: ['Swiss automatic movement', 'Brushed stainless steel case', 'Sapphire crystal', '50m water resistance'],
+    gender: 'Unisex',
   },
   {
     id: '9',
@@ -157,6 +166,7 @@ export const products: Product[] = [
     description:
       'A classic trucker jacket in washed indigo selvedge denim with a relaxed fit and antique-finish hardware.',
     details: ['100% selvedge cotton denim', 'Antique-finish buttons', 'Chest and side pockets', 'Made in Japan'],
+    gender: 'Men',
   },
   {
     id: '10',
@@ -172,6 +182,7 @@ export const products: Product[] = [
     description:
       'A lustrous silk twill scarf featuring an archival print in burgundy and cream, hand-rolled at the edges.',
     details: ['100% silk twill', 'Hand-rolled edges', 'Archival print', 'Made in Italy'],
+    gender: 'Unisex',
   },
   {
     id: '11',
@@ -187,6 +198,7 @@ export const products: Product[] = [
     description:
       'Elegant chelsea boots in soft brown suede with elasticated side panels and a leather sole, Goodyear-welted for longevity.',
     details: ['Premium suede upper', 'Goodyear-welted leather sole', 'Elasticated side gussets', 'Made in England'],
+    gender: 'Men',
   },
   {
     id: '12',
@@ -202,6 +214,7 @@ export const products: Product[] = [
     description:
       'A fine-gauge merino rollneck offering elegant warmth beneath tailoring or worn alone. Naturally temperature-regulating.',
     details: ['100% extra-fine merino wool', 'Fine-gauge knit', 'Roll neck', 'Machine washable'],
+    gender: 'Men',
   },
   {
     id: '13',
@@ -218,6 +231,7 @@ export const products: Product[] = [
     description:
       "A classic button-down collar shirt from Drake's, crafted from breathable cotton with clean red and white stripes. Finished with a chest pocket and mother-of-pearl buttons.",
     details: ['100% cotton', 'Button-down collar', 'Chest patch pocket', 'Made in England'],
+    gender: 'Men',
   },
   {
     id: '14',
@@ -233,6 +247,7 @@ export const products: Product[] = [
     description:
       'Cut from a durable structured cotton twill denim, these charcoal five-pocket trousers feature a straight-leg cut for an elegant daily wardrobe option.',
     details: ['100% cotton denim', 'Five-pocket design', 'Straight leg', 'Made in Italy'],
+    gender: 'Men',
   },
   {
     id: '15',
@@ -249,6 +264,7 @@ export const products: Product[] = [
     description:
       'Taking inspiration from vintage workwear, this Bode shirt-jacket is tailored from a soft plaid wool blend. Designed with a camp collar and front patch pockets.',
     details: ['80% wool, 20% nylon', 'Camp collar, button front', 'Two lower front patch pockets', 'Dry clean only'],
+    gender: 'Men',
   },
   {
     id: '16',
@@ -264,6 +280,7 @@ export const products: Product[] = [
     description:
       'Knitted on the Aran Islands, this beige zip-up cardigan features a heavy-gauge texture with subtle oatmeal flecks. Finished with a two-way zip closure and ribbed trims.',
     details: ['100% merino wool', 'Two-way zip closure', 'Oatmeal fleck texture', 'Made in Ireland'],
+    gender: 'Men',
   },
   {
     id: '17',
@@ -279,6 +296,7 @@ export const products: Product[] = [
     description:
       'Premium brown suede low-top sneakers featuring contrast stitching, white laces, and a thick off-white vulcanized rubber sole for daily casual wear.',
     details: ['Premium suede upper', 'Vulcanized rubber sole', 'Leather lining', 'Handcrafted in Portugal'],
+    gender: 'Men',
   },
   {
     id: '18',
@@ -295,6 +313,124 @@ export const products: Product[] = [
     description:
       'Exquisitely crafted by Kiton in Italy, this light lavender-grey polo shirt is knitted from premium long-staple cotton for a luxurious and breathable fit.',
     details: ['100% premium cotton', 'Three-button placket', 'Ribbed collar and cuffs', 'Made in Italy'],
+    gender: 'Men',
+  },
+  // Women's Collection
+  {
+    id: '19',
+    slug: 'womens-double-breasted-trench',
+    name: 'Double-Breasted Trench Coat',
+    brand: 'Atelier Verdun',
+    price: 1250,
+    category: 'Coats',
+    color: 'Beige',
+    colors: ['Beige'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/womens-trench.png',
+    isNew: true,
+    description:
+      'A premium luxury double-breasted beige trench coat for women, tailored with a modern drape, storm flaps, and high-grade horn buttons.',
+    details: ['100% fine cotton gabardine', 'Double-breasted button front closure', 'Adjustable sleeve straps and waist belt', 'Dry clean only'],
+    gender: 'Women',
+  },
+  {
+    id: '20',
+    slug: 'womens-oversized-cashmere-sweater',
+    name: 'Oversized Cashmere Sweater',
+    brand: 'Mira Knitwear',
+    price: 460,
+    category: 'Knitwear',
+    color: 'Beige',
+    colors: ['Beige', 'White'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/womens-cashmere-knit.png',
+    isNew: true,
+    description:
+      'An oversized cream cashmere knit sweater for women, spun from premium long-staple fibers to provide luxurious lightweight warmth.',
+    details: ['100% grade-A cashmere', 'Oversized slouchy mock-neck design', 'Ribbed cuffs and dynamic split hem', 'Dry clean only'],
+    gender: 'Women',
+  },
+  {
+    id: '21',
+    slug: 'womens-draped-silk-blouse',
+    name: 'Draped Silk Blouse',
+    brand: 'Atelier Verdun',
+    price: 340,
+    category: 'Shirts',
+    color: 'White',
+    colors: ['White'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/womens-silk-blouse.png',
+    isNew: true,
+    description:
+      'A sophisticated luxury white silk blouse featuring a delicate collar, hidden button placket, and a soft fluid drape.',
+    details: ['100% pure mulberry silk twill', 'Hidden front button placket', 'Mother-of-pearl cuff buttons', 'Dry clean only'],
+    gender: 'Women',
+  },
+  {
+    id: '22',
+    slug: 'womens-tailored-wide-leg-trousers',
+    name: 'Tailored Wide-Leg Trousers',
+    brand: 'Atelier Verdun',
+    price: 420,
+    category: 'Trousers',
+    color: 'Charcoal',
+    colors: ['Charcoal'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/womens-tailored-trousers.png',
+    isNew: true,
+    description:
+      'High-waisted wide-leg tailored trousers in a fine charcoal suit fabric, offering a refined, structured silhouette for modern formal styling.',
+    details: ['100% premium virgin wool blend', 'High-waisted flat front construction', 'Wide-leg relaxed fit', 'Made in Italy'],
+    gender: 'Women',
+  },
+  {
+    id: '23',
+    slug: 'flare-dress-black-polka-dot',
+    name: 'Black Polka Dot Flare Dress',
+    brand: 'Atelier Verdun',
+    price: 680,
+    category: 'Dresses',
+    color: 'Black',
+    colors: ['Black'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/flare-dress-black-polka-dot-women.png',
+    isNew: true,
+    description: 'A charming flare dress featuring classic black and white polka dots, cut with a flattering cinched waist and a flowing flared skirt.',
+    details: ['100% organic cotton', 'Flared silhouette', 'Concealed zipper at back', 'Machine washable'],
+    gender: 'Women',
+  },
+  {
+    id: '24',
+    slug: 'shirring-dress-burnt-orange',
+    name: 'Burnt Orange Shirring Dress',
+    brand: 'Atelier Verdun',
+    price: 740,
+    category: 'Dresses',
+    color: 'Orange',
+    colors: ['Orange'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/shirring-dress-burnt-orange-women.png',
+    isNew: true,
+    description: 'An elegant shirred midi dress in a rich burnt orange hue. Designed with elasticated smocking and a lightweight, breathable drape.',
+    details: ['100% Tencel lyocell', 'Smocked elasticated bodice', 'Midi length skirt', 'Dry clean only'],
+    gender: 'Women',
+  },
+  {
+    id: '25',
+    slug: 'v-neck-dress-black',
+    name: 'Classic V-Neck Black Dress',
+    brand: 'Atelier Verdun',
+    price: 590,
+    category: 'Dresses',
+    color: 'Black',
+    colors: ['Black'],
+    sizes: ['S', 'M', 'L'],
+    image: '/products/v-neck-dress-black-women-s.png',
+    isNew: true,
+    description: 'A timeless black midi dress cut with an elegant V-neckline. Features a subtle side slit and clean, minimalist tailoring.',
+    details: ['95% viscose, 5% elastane', 'V-neckline front and back', 'Side slit detail', 'Dry clean or hand wash'],
+    gender: 'Women',
   },
 ]
 
@@ -306,6 +442,7 @@ export const categories = [
   'Shoes',
   'Bags',
   'Accessories',
+  'Dresses',
 ] as const
 
 export function getProduct(slug: string) {

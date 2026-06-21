@@ -280,6 +280,24 @@ export function VirtualTryOnPreview() {
                   {userImage === '/try-on/model2.png' && <span className="ml-auto size-1.5 rounded-full bg-accent" />}
                 </button>
 
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUserImage('/try-on/model3.png')
+                    setDropdownOpen(false)
+                  }}
+                  className={cn(
+                    'w-full flex items-center gap-3.5 px-3.5 py-2 hover:bg-secondary/40 text-left transition-colors',
+                    userImage === '/try-on/model3.png' && 'font-semibold bg-secondary/25'
+                  )}
+                >
+                  <div className="relative size-6 bg-secondary border border-border overflow-hidden shrink-0">
+                    <Image src={resolveAsset('/try-on/model3.png')} alt="Female Model 1" fill className="object-cover" />
+                  </div>
+                  <span className="truncate">Female Model 1</span>
+                  {userImage === '/try-on/model3.png' && <span className="ml-auto size-1.5 rounded-full bg-accent" />}
+                </button>
+
                 {/* Clear/Reset option */}
                 {userImage && (
                   <button

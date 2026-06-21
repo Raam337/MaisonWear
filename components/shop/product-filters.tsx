@@ -5,6 +5,8 @@ import { ChevronDown, ChevronUp, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ProductFiltersProps {
+  selectedGender: string | null
+  onGenderChange: (gender: string | null) => void
   selectedCategory: string | null
   onCategoryChange: (category: string | null) => void
   selectedColor: string | null
@@ -18,7 +20,7 @@ interface ProductFiltersProps {
   onClearAll: () => void
 }
 
-const CATEGORIES = ['Jackets', 'Shirts', 'Trousers', 'Shoes', 'Accessories']
+const CATEGORIES = ['Jackets', 'Shirts', 'Dresses', 'Trousers', 'Shoes', 'Accessories']
 
 const COLORS = [
   { name: 'Camel', hex: '#C19A6B' },
@@ -42,6 +44,8 @@ const SIZES = [
 ]
 
 export function ProductFilters({
+  selectedGender,
+  onGenderChange,
   selectedCategory,
   onCategoryChange,
   selectedColor,
@@ -55,6 +59,7 @@ export function ProductFilters({
   onClearAll,
 }: ProductFiltersProps) {
   const [openSections, setOpenSections] = useState({
+    gender: true,
     category: true,
     color: true,
     size: false,
@@ -66,6 +71,7 @@ export function ProductFilters({
   }
 
   const hasActiveFilters =
+    selectedGender !== null ||
     selectedCategory !== null ||
     selectedColor !== null ||
     selectedSize !== null ||
@@ -85,6 +91,41 @@ export function ProductFilters({
             <RotateCcw className="size-2.5" />
             Reset
           </button>
+        )}
+      </div>
+
+      {/* Gender Section */}
+      <div className="border-b border-border/60 pb-3">
+        <button
+          type="button"
+          onClick={() => toggleSection('gender')}
+          className="flex w-full items-center justify-between text-[10px] uppercase tracking-luxe text-foreground font-medium py-0.5"
+        >
+          Gender
+          {openSections.gender ? <ChevronUp className="size-2.5" /> : <ChevronDown className="size-2.5" />}
+        </button>
+
+        {openSections.gender && (
+          <div className="mt-2 flex gap-1.5 animate-fade-in">
+            {['All', 'Men', 'Women'].map((gender) => {
+              const active = (selectedGender === null && gender === 'All') || selectedGender === gender
+              return (
+                <button
+                  key={gender}
+                  type="button"
+                  onClick={() => onGenderChange(gender === 'All' ? null : gender)}
+                  className={cn(
+                    'flex-1 border py-1.5 text-[9px] text-center uppercase tracking-luxe transition-all duration-300 font-medium',
+                    active
+                      ? 'border-primary bg-primary text-primary-foreground font-semibold'
+                      : 'border-border bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
+                  )}
+                >
+                  {gender}
+                </button>
+              )
+            })}
+          </div>
         )}
       </div>
 

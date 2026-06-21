@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { categories } from '@/lib/products'
+import { SITE_CONFIG } from '@/lib/config'
 
 export function SiteFooter() {
   return (
@@ -10,10 +11,10 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
             <span className="font-serif text-2xl tracking-[0.3em] uppercase">
-              Maison
+              {SITE_CONFIG.name}
             </span>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A curated edit of the world&apos;s finest menswear, delivered with
+              A curated edit of the world&apos;s finest fashion, delivered with
               uncompromising service.
             </p>
           </div>
@@ -84,7 +85,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row">
-          <p>&copy; {new Date().getFullYear()} Maison. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="transition-colors hover:text-accent">
               Privacy

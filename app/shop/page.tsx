@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import { TryOnProvider } from './try-on-context'
 import { ShopLayout } from '@/components/shop/shop-layout'
+import { SITE_CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
-  title: 'AI Fitting Room — Maison | Virtual Try-On Experience',
+  title: `AI Fitting Room — ${SITE_CONFIG.name} | Virtual Try-On Experience`,
   description:
-    'Browse our luxury menswear collection, upload your photo, and generate a photorealistic outfit preview with our virtual AI try-on engine.',
+    'Browse our luxury fashion collection, upload your photo, and generate a photorealistic outfit preview with our virtual AI try-on engine.',
 }
 
 export default function ShopPage() {

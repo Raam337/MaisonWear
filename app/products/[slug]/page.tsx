@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getProduct, getRelated, products } from '@/lib/products'
 import { ProductDetail } from '@/components/product-detail'
 import { ProductCard } from '@/components/product-card'
+import { SITE_CONFIG } from '@/lib/config'
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }))
@@ -15,9 +16,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params
   const product = getProduct(slug)
-  if (!product) return { title: 'Product Not Found — Maison' }
+  if (!product) return { title: `Product Not Found — ${SITE_CONFIG.name}` }
   return {
-    title: `${product.name} — ${product.brand} | Maison`,
+    title: `${product.name} — ${product.brand} | ${SITE_CONFIG.name}`,
     description: product.description,
   }
 }

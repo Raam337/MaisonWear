@@ -3,6 +3,7 @@ import { products } from '@/lib/products'
 import { ProductCard } from '@/components/product-card'
 import Link from 'next/link'
 import { ArrowRight, FileText } from 'lucide-react'
+import { SITE_CONFIG } from '@/lib/config'
 
 export default function HomePage() {
   // Curated select of first 4 items
@@ -39,13 +40,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Maison Memos Section */}
+      {/* Brand Memos Section */}
       <section className="bg-secondary/15 py-20 border-y border-border/40">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="flex flex-col items-center text-center mb-16">
             <span className="text-[11px] uppercase tracking-luxe text-accent font-semibold">The Journal</span>
             <h2 className="mt-2 font-serif text-3xl lg:text-4xl tracking-tight text-foreground">
-              Maison Memos
+              {SITE_CONFIG.name} Memos
             </h2>
             <p className="mt-3 text-xs uppercase tracking-luxe text-muted-foreground">
               Notes on style, materials, and craftsmanship

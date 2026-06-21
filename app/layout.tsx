@@ -6,6 +6,7 @@ import { CartProvider } from '@/components/cart/cart-provider'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { CartDrawer } from '@/components/cart/cart-drawer'
+import { SITE_CONFIG } from '@/lib/config'
 
 const inter = Inter({ variable: '--font-inter', subsets: ['latin'] })
 const cormorant = Cormorant_Garamond({
@@ -16,9 +17,9 @@ const cormorant = Cormorant_Garamond({
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MAISON — Luxury Menswear',
+  title: `${SITE_CONFIG.name} — High Fashion`,
   description:
-    'A curated edit of the world&apos;s finest menswear. Tailoring, knitwear, footwear and accessories from leading designers.',
+    'A curated edit of the world&apos;s finest fashion. Tailoring, knitwear, footwear and accessories from leading designers.',
   generator: 'v0.app',
 }
 

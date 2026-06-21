@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import { useCart } from '@/components/cart/cart-provider'
 import { categories } from '@/lib/products'
 import { cn } from '@/lib/utils'
+import { SITE_CONFIG } from '@/lib/config'
 
 export function SiteHeader() {
   const { count, openCart } = useCart()
@@ -77,7 +78,7 @@ export function SiteHeader() {
           {/* Center: logo */}
           <Link href="/" className="flex-shrink-0">
             <span className="font-serif text-2xl font-semibold tracking-[0.3em] uppercase lg:text-3xl">
-              Maison
+              {SITE_CONFIG.name}
             </span>
           </Link>
 
@@ -143,7 +144,7 @@ export function SiteHeader() {
             >
               <div className="flex items-center justify-between border-b border-border px-5 py-4">
                 <span className="font-serif text-xl tracking-[0.3em] uppercase">
-                  Maison
+                  {SITE_CONFIG.name}
                 </span>
                 <button
                   type="button"

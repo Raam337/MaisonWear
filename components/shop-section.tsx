@@ -56,7 +56,7 @@ export function ShopSection({ initialCategory }: { initialCategory?: string }) {
       <div className="flex flex-col gap-2 text-center">
         <p className="text-xs uppercase tracking-luxe text-accent">The Collection</p>
         <h2 className="font-serif text-4xl tracking-tight lg:text-5xl">
-          Shop All Menswear
+          Shop All
         </h2>
       </div>
 

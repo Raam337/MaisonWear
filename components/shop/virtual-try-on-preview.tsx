@@ -13,6 +13,7 @@ import {
   RefreshCw,
 } from 'lucide-react'
 import { cn, resolveAsset } from '@/lib/utils'
+import { SITE_CONFIG } from '@/lib/config'
 
 export function VirtualTryOnPreview() {
   const {
@@ -81,7 +82,7 @@ export function VirtualTryOnPreview() {
       }
 
       const mimeType = blob.type || 'image/png'
-      const file = new File([blob], 'maison-try-on-look.png', { type: mimeType })
+      const file = new File([blob], `${SITE_CONFIG.slug}-try-on-look.png`, { type: mimeType })
 
       // 2. Share via Web Share API if supported and on mobile (iOS/Android native save/share sheet)
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
@@ -89,8 +90,8 @@ export function VirtualTryOnPreview() {
       if (isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
-          title: 'Maison Wear Try-On',
-          text: 'My Virtual Try-on Look from Maison Wear',
+          title: `${SITE_CONFIG.name} Try-On`,
+          text: `My Virtual Try-on Look from ${SITE_CONFIG.name}`,
         })
         return
       }
@@ -102,7 +103,7 @@ export function VirtualTryOnPreview() {
     try {
       const link = document.createElement('a')
       link.href = resolveAsset(generatedImage)
-      link.download = 'maison-try-on-outfit.png'
+      link.download = `${SITE_CONFIG.slug}-try-on-outfit.png`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)

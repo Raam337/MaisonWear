@@ -4,6 +4,7 @@ import { useTryOn } from '@/app/shop/try-on-context'
 import { Download, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import { formatPrice } from '@/lib/products'
+import { SITE_CONFIG } from '@/lib/config'
 
 export function GeneratedResult() {
   const { generatedImage, selectedProducts, resetTryOn } = useTryOn()
@@ -12,7 +13,7 @@ export function GeneratedResult() {
     if (!generatedImage) return
     const link = document.createElement('a')
     link.href = generatedImage
-    link.download = 'maison-try-on-outfit.png'
+    link.download = `${SITE_CONFIG.slug}-try-on-outfit.png`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

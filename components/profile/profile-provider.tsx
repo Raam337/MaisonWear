@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { SITE_CONFIG } from '@/lib/config'
 
 type ProfileContextValue = {
   photo: string | null
@@ -10,7 +11,7 @@ type ProfileContextValue = {
 
 const ProfileContext = createContext<ProfileContextValue | null>(null)
 
-const STORAGE_KEY = 'maison-profile-photo'
+const STORAGE_KEY = `${SITE_CONFIG.slug}-profile-photo`
 
 export function ProfileProvider({ children }: { children: ReactNode }) {
   const [photo, setPhotoState] = useState<string | null>(null)

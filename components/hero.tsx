@@ -1,13 +1,28 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { resolveAsset } from '@/lib/utils'
+import { SITE_CONFIG } from '@/lib/config'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 export function Hero() {
+  const [heroImage, setHeroImage] = useState<string>(resolveAsset('/hero-main.png'))
+
+  useEffect(() => {
+    try {
+      const storedImage = localStorage.getItem(`${SITE_CONFIG.slug}-last-generated-image`)
+      if (storedImage) {
+        setHeroImage(storedImage)
+      }
+    } catch (e) {
+      console.warn('Failed to load last generated image from localStorage:', e)
+    }
+  }, [])
+
   return (
     <section className="relative">
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -17,15 +32,26 @@ export function Hero() {
             initial={{ scale: 1.08 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.4, ease }}
-            className="absolute inset-0"
+            className="absolute inset-0 flex items-center justify-center bg-secondary"
           >
+            {/* If it's a custom/generated image, render a blurred background underlay */}
+            {heroImage !== resolveAsset('/hero-main.png') && (
+              <div className="absolute inset-0 select-none pointer-events-none">
+                <Image
+                  src={heroImage}
+                  alt=""
+                  fill
+                  className="object-cover blur-2xl opacity-45 scale-110"
+                />
+              </div>
+            )}
             <Image
-              src={resolveAsset('/hero-main.png')}
+              src={heroImage}
               alt="Model wearing a camel wool overcoat"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className={heroImage === resolveAsset('/hero-main.png') ? 'object-cover' : 'object-contain relative z-10'}
             />
           </motion.div>
         </div>

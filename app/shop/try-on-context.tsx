@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import type { Product } from '@/lib/products'
 import { resolveAsset } from '@/lib/utils'
+import { SITE_CONFIG } from '@/lib/config'
 
 export interface TryOnState {
   userImage: string | null
@@ -59,6 +60,13 @@ export function TryOnProvider({ children }: { children: React.ReactNode }) {
 
   const setGeneratedImage = (image: string | null) => {
     setGeneratedImageState(image)
+    if (image && typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(`${SITE_CONFIG.slug}-last-generated-image`, image)
+      } catch (e) {
+        console.warn('Failed to save last generated image to localStorage:', e)
+      }
+    }
   }
 
   const resetTryOn = () => {
@@ -176,7 +184,7 @@ CRITICAL OUTFIT GUIDELINES:
       }
 
       const dataUrl = `data:${responseMimeType};base64,${generatedImageBase64}`
-      setGeneratedImageState(dataUrl)
+      setGeneratedImage(dataUrl)
     } catch (error) {
       console.error('Try-on error:', error)
       alert(error instanceof Error ? error.message : 'An error occurred during generation.')

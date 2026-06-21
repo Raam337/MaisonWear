@@ -23,6 +23,29 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const titleLength = SITE_CONFIG.name.length
+  let logoClass = 'font-serif font-semibold uppercase text-center transition-all duration-300'
+  if (titleLength > 16) {
+    logoClass += ' text-sm tracking-[0.1em] sm:text-base lg:text-lg sm:tracking-[0.15em]'
+  } else if (titleLength > 12) {
+    logoClass += ' text-base tracking-[0.15em] sm:text-lg lg:text-xl sm:tracking-[0.2em]'
+  } else if (titleLength > 8) {
+    logoClass += ' text-lg tracking-[0.2em] sm:text-xl lg:text-2xl sm:tracking-[0.25em]'
+  } else {
+    logoClass += ' text-2xl tracking-[0.3em] lg:text-3xl'
+  }
+
+  let drawerLogoClass = 'font-serif uppercase transition-all duration-300'
+  if (titleLength > 16) {
+    drawerLogoClass += ' text-xs tracking-[0.1em]'
+  } else if (titleLength > 12) {
+    drawerLogoClass += ' text-sm tracking-[0.15em]'
+  } else if (titleLength > 8) {
+    drawerLogoClass += ' text-base tracking-[0.2em]'
+  } else {
+    drawerLogoClass += ' text-xl tracking-[0.3em]'
+  }
+
   return (
     <>
       <header
@@ -42,7 +65,7 @@ export function SiteHeader() {
 
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 lg:px-8">
           {/* Left: mobile menu + nav */}
-          <div className="flex flex-1 items-center gap-6">
+          <div className="flex items-center gap-6 flex-shrink-0">
             <button
               type="button"
               aria-label="Open menu"
@@ -76,14 +99,14 @@ export function SiteHeader() {
           </div>
 
           {/* Center: logo */}
-          <Link href="/" className="flex-shrink-0">
-            <span className="font-serif text-2xl font-semibold tracking-[0.3em] uppercase lg:text-3xl">
+          <Link href="/" className="flex-1 text-center min-w-0 mx-4">
+            <span className={cn('block truncate', logoClass)}>
               {SITE_CONFIG.name}
             </span>
           </Link>
 
           {/* Right: actions */}
-          <div className="flex flex-1 items-center justify-end gap-5">
+          <div className="flex items-center justify-end gap-5 flex-shrink-0">
             <Link
               href="/search"
               aria-label="Search"
@@ -143,7 +166,7 @@ export function SiteHeader() {
               className="fixed inset-y-0 left-0 z-[70] flex w-[82%] max-w-sm flex-col bg-background lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-border px-5 py-4">
-                <span className="font-serif text-xl tracking-[0.3em] uppercase">
+                <span className={drawerLogoClass}>
                   {SITE_CONFIG.name}
                 </span>
                 <button

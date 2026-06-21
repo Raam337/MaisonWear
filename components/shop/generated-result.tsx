@@ -45,14 +45,25 @@ export function GeneratedResult() {
         {/* Output image */}
         <div className="md:col-span-7 flex flex-col items-center justify-center bg-secondary/25 border border-border/60 aspect-3/4 relative overflow-hidden group shadow-md">
           {generatedImage && (
-            <Image
-              src={generatedImage}
-              alt="Generated Try-On Result"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 35vw"
-              priority
-            />
+            <>
+              {/* Blurred background underlay */}
+              <div className="absolute inset-0 select-none pointer-events-none">
+                <Image
+                  src={generatedImage}
+                  alt=""
+                  fill
+                  className="object-cover blur-2xl opacity-45 scale-110"
+                />
+              </div>
+              <Image
+                src={generatedImage}
+                alt="Generated Try-On Result"
+                fill
+                className="object-contain relative z-10"
+                sizes="(max-width: 768px) 100vw, 35vw"
+                priority
+              />
+            </>
           )}
         </div>
 
